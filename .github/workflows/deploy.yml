@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: write
+      packages: write   # обязательно для публикации пакетов[reference:1]
 
     steps:
       - uses: actions/checkout@v4
@@ -19,7 +19,26 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+
+      # Создаём settings.xml на лету с использованием GITHUB_TOKEN
+      - name: Create settings.xml
+        run: |
+          mkdir -p ~/.m2
+          cat > ~/.m2/settings.xml << EOF
+          <settings>
+            <servers>
+              <server>
+                <id>github</id>
+                <username>demrodev</username>
+                <password>${GITHUB_TOKEN}</password>
+              </server>
+            </servers>
+          </settings>
+          EOF
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build and publish
         run: mvn -B deploy
         env:
-          GITHUB_TOKEN: ${{ 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 }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
