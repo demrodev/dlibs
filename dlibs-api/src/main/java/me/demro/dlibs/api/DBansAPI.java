@@ -1,18 +1,26 @@
 package me.demro.dlibs.api;
 
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 public interface DBansAPI {
 
-    PunishmentManager getPunishmentManager();
+    @Contract(pure = true)
+    @NotNull PunishmentManager getPunishmentManager();
 
-    PlayerManager getPlayerManager();
+    @Contract(pure = true)
+    @NotNull PlayerManager getPlayerManager();
 
-    EventManager getEventManager();
+    @Contract(pure = true)
+    @NotNull EventManager getEventManager();
 
+    @Contract(pure = true)
     boolean isEnabled();
 
-    String getVersion();
+    @Contract(pure = true)
+    @NotNull String getVersion();
 
-    Plugin getPlugin();
+    @Contract(pure = true)
+    @NotNull Plugin getPlugin();
 }

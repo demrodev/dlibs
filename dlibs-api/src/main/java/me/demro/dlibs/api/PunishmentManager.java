@@ -2,6 +2,9 @@ package me.demro.dlibs.api;
 
 import me.demro.dlibs.api.exceptions.PlayerNotFoundException;
 import me.demro.dlibs.api.exceptions.PunishmentNotFoundException;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.UUID;
@@ -9,24 +12,32 @@ import java.util.concurrent.CompletableFuture;
 
 public interface PunishmentManager {
 
-    String punish(UUID targetUuid, PunishmentType type, String reason, Long duration,
-                  UUID issuerUuid, String issuerName, String serverName
+    @NotNull String punish(@NotNull UUID targetUuid, @NotNull PunishmentType type, @NotNull String reason,
+                           @Nullable Long duration, @NotNull UUID issuerUuid, @NotNull String issuerName,
+                           @NotNull String serverName
     ) throws PlayerNotFoundException;
 
-    void revoke(String punishmentId, String issuerName, String reason) throws PunishmentNotFoundException;
+    void revoke(@NotNull String punishmentId, @NotNull String issuerName, @NotNull String reason)
+            throws PunishmentNotFoundException;
 
-    Punishment getPunishment(String id);
+    @Contract(pure = true)
+    @Nullable Punishment getPunishment(@NotNull String id);
 
-    List<Punishment> getActivePunishments(UUID targetUuid);
+    @Contract(pure = true)
+    @NotNull List<Punishment> getActivePunishments(@NotNull UUID targetUuid);
 
-    List<Punishment> getHistory(UUID targetUuid);
+    @Contract(pure = true)
+    @NotNull List<Punishment> getHistory(@NotNull UUID targetUuid);
 
-    boolean isBanned(UUID targetUuid);
+    @Contract(pure = true)
+    boolean isBanned(@NotNull UUID targetUuid);
 
-    boolean isMuted(UUID targetUuid);
+    @Contract(pure = true)
+    boolean isMuted(@NotNull UUID targetUuid);
 
-    CompletableFuture<String> punishAsync(UUID targetUuid, PunishmentType type, String reason,
-                                          Long duration, UUID issuerUuid, String issuerName,
-                                          String serverName
+    @NotNull CompletableFuture<String> punishAsync(@NotNull UUID targetUuid, @NotNull PunishmentType type,
+                                                   @NotNull String reason, @Nullable Long duration,
+                                                   @NotNull UUID issuerUuid, @NotNull String issuerName,
+                                                   @NotNull String serverName
     );
 }

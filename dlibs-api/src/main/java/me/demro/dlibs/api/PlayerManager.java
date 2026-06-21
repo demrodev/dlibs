@@ -1,14 +1,22 @@
 package me.demro.dlibs.api;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.UUID;
 
 public interface PlayerManager {
 
-    String getPlayerIp(UUID playerUuid);
+    @Contract(pure = true)
+    @Nullable String getPlayerIp(@NotNull UUID playerUuid);
 
-    boolean hasImmunity(UUID playerUuid, PunishmentType type);
+    @Contract(pure = true)
+    boolean hasImmunity(@NotNull UUID playerUuid, @NotNull PunishmentType type);
 
-    int getPriority(UUID playerUuid);
+    @Contract(pure = true)
+    int getPriority(@NotNull UUID playerUuid);
 
-    boolean canPunish(UUID issuerUuid, UUID targetUuid);
+    @Contract(pure = true)
+    boolean canPunish(@NotNull UUID issuerUuid, @NotNull UUID targetUuid);
 }
