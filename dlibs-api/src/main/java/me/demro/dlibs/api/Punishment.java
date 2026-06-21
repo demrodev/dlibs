@@ -1,30 +1,46 @@
 package me.demro.dlibs.api;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.UUID;
 
 public interface Punishment {
 
-    String getId();
+    @Contract(pure = true)
+    @NotNull String getId();
 
-    UUID getPlayerUuid();
+    @Contract(pure = true)
+    @NotNull UUID getPlayerUuid();
 
-    String getPlayerName();
+    @Contract(pure = true)
+    @NotNull String getPlayerName();
 
-    UUID getIssuerUuid();
+    @Contract(pure = true)
+    @NotNull UUID getIssuerUuid();
 
-    String getIssuerName();
+    @Contract(pure = true)
+    @NotNull String getIssuerName();
 
-    PunishmentType getType();
+    @Contract(pure = true)
+    @NotNull PunishmentType getType();
 
-    String getReason();
+    @Contract(pure = true)
+    @NotNull String getReason();
 
+    @Contract(pure = true)
     long getStartTime();
 
-    Long getEndTime();
+    @Contract(pure = true)
+    @Nullable Long getEndTime();
 
+    @Contract(pure = true)
     boolean isActive();
 
+    @Contract(pure = true)
     boolean isExpired();
 
-    String getServerName();
+    @Contract(pure = true)
+    @NotNull String getServerName();
 }

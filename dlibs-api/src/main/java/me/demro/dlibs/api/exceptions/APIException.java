@@ -1,12 +1,14 @@
 package me.demro.dlibs.api.exceptions;
 
+import org.jetbrains.annotations.NotNull;
+
 public class APIException extends RuntimeException {
 
-    public APIException(String message) {
+    public APIException(@NotNull String message) {
         super(message);
     }
 
-    public APIException(String message, Throwable cause) {
+    public APIException(@NotNull String message, @NotNull Throwable cause) {
         super(message, cause);
     }
 }
