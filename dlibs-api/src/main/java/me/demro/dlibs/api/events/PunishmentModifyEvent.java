@@ -1,7 +1,9 @@
 package me.demro.dlibs.api.events;
 
+import lombok.Getter;
 import me.demro.dlibs.api.Punishment;
 
+@Getter
 public class PunishmentModifyEvent extends PunishmentEvent {
 
     private final String oldReason;
@@ -17,21 +19,5 @@ public class PunishmentModifyEvent extends PunishmentEvent {
         this.newReason = newReason;
         this.oldEndTime = oldEndTime;
         this.newEndTime = newEndTime;
-    }
-
-    public String getOldReason() {
-        return oldReason;
-    }
-
-    public String getNewReason() {
-        return newReason;
-    }
-
-    public Long getOldEndTime() {
-        return oldEndTime;
-    }
-
-    public Long getNewEndTime() {
-        return newEndTime;
     }
 }

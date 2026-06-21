@@ -11,11 +11,9 @@ public interface PunishmentManager {
 
     String punish(UUID targetUuid, PunishmentType type, String reason, Long duration,
                   UUID issuerUuid, String issuerName, String serverName
-    )
-            throws PlayerNotFoundException;
+    ) throws PlayerNotFoundException;
 
-    void revoke(String punishmentId, String issuerName, String reason)
-            throws PunishmentNotFoundException;
+    void revoke(String punishmentId, String issuerName, String reason) throws PunishmentNotFoundException;
 
     Punishment getPunishment(String id);
 
