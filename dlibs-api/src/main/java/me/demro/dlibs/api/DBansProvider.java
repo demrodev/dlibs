@@ -4,9 +4,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
 public final class DBansProvider {
+
     private static DBansAPI apiInstance;
 
-    private DBansProvider() {}
+    private DBansProvider() {
+    }
 
     public static DBansAPI get() {
         if (apiInstance != null) return apiInstance;
@@ -20,6 +22,7 @@ public final class DBansProvider {
     }
 
     public interface DBansAPIProvider {
+
         DBansAPI getAPI();
     }
 }
