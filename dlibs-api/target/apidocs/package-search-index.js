@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"l":"me.demro.dlibs.api"},{"l":"me.demro.dlibs.api.events"},{"l":"me.demro.dlibs.api.exceptions"}];updateSearchResults();
