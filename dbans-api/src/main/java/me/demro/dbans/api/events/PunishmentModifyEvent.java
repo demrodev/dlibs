@@ -1,7 +1,7 @@
-package me.demro.dlibs.api.events;
+package me.demro.dbans.api.events;
 
 import lombok.Getter;
-import me.demro.dlibs.api.Punishment;
+import me.demro.dbans.api.Punishment;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

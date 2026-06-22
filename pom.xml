@@ -20,7 +20,7 @@
     </repositories>
 
     <modules>
-        <module>dlibs-api</module>
+        <module>dbans-api</module>
     </modules>
 
     <properties>
