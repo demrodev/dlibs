@@ -43,5 +43,5 @@ jobs:
           NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
 
-      - name: Build and deploy
+      - name: Build and Deploy
         run: mvn --batch-mode --update-snapshots clean deploy
