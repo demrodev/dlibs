@@ -1,6 +1,6 @@
-package me.demro.dlibs.api;
+package me.demro.dlibs.dbans.api;
 
-import me.demro.dlibs.api.events.PunishmentEvent;
+import me.demro.dlibs.dbans.api.events.PunishmentEvent;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
 
@@ -31,7 +31,7 @@ public interface EventManager {
      * Fires punishment event, notifying all registered listeners.
      *
      * @param event event to call
-     * @apiNote This method is intended for internal use by DBans, and it is recommended to use {@link me.demro.dlibs.api.PunishmentManager} methods for creating/updating/deleting punishments, which will automatically call appropriate events.
+     * @apiNote This method is intended for internal use by DBans, and it is recommended to use {@link PunishmentManager} methods for creating/updating/deleting punishments, which will automatically call appropriate events.
      * @since 1.0.0
      */
     void callEvent(@NotNull PunishmentEvent event);

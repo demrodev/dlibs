@@ -1,4 +1,4 @@
-package me.demro.dlibs.api;
+package me.demro.dlibs.dbans.api;
 
 /**
  * Types of punishment.

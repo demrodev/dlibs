@@ -1,6 +1,6 @@
-package me.demro.dlibs.api.events;
+package me.demro.dlibs.dbans.api.events;
 
-import me.demro.dlibs.api.Punishment;
+import me.demro.dlibs.dbans.api.Punishment;
 import org.jetbrains.annotations.NotNull;
 
 /**

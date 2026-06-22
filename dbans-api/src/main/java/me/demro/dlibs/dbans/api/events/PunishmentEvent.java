@@ -1,8 +1,8 @@
-package me.demro.dlibs.api.events;
+package me.demro.dlibs.dbans.api.events;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import me.demro.dlibs.api.Punishment;
+import me.demro.dlibs.dbans.api.Punishment;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.Contract;

@@ -1,7 +1,7 @@
-package me.demro.dlibs.api;
+package me.demro.dlibs.dbans.api;
 
-import me.demro.dlibs.api.exceptions.PlayerNotFoundException;
-import me.demro.dlibs.api.exceptions.PunishmentNotFoundException;
+import me.demro.dlibs.dbans.api.exceptions.PlayerNotFoundException;
+import me.demro.dlibs.dbans.api.exceptions.PunishmentNotFoundException;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

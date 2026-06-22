@@ -1,4 +1,4 @@
-package me.demro.dlibs.api.exceptions;
+package me.demro.dlibs.dbans.api.exceptions;
 
 import org.jetbrains.annotations.NotNull;
 
