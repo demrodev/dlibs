@@ -1,4 +1,4 @@
-package me.demro.dbans.api;
+package me.demro.dlibs.dbans.api;
 
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.Contract;

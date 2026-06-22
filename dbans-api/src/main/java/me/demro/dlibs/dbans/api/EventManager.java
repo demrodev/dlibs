@@ -1,6 +1,6 @@
-package me.demro.dbans.api;
+package me.demro.dlibs.dbans.api;
 
-import me.demro.dbans.api.events.PunishmentEvent;
+import me.demro.dlibs.dbans.api.events.PunishmentEvent;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
 

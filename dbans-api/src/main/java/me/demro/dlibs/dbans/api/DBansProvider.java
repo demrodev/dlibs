@@ -1,4 +1,4 @@
-package me.demro.dbans.api;
+package me.demro.dlibs.dbans.api;
 
 import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;

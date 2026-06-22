@@ -3,4 +3,4 @@
  *
  * @since 1.0.0
  */
-package me.demro.dbans.api;
+package me.demro.dlibs.dbans.api;

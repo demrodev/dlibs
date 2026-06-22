@@ -5,4 +5,4 @@
  *
  * @since 1.0.0
  */
-package me.demro.dbans.api.exceptions;
+package me.demro.dlibs.dbans.api.exceptions;
