@@ -23,6 +23,17 @@ jobs:
           java-version: 21
           cache: maven
 
+      - name: Reject SNAPSHOT version on main
+        run: |
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+
+          if [[ "$VERSION" == *"-SNAPSHOT" ]]; then
+            echo "SNAPSHOT versions must not be deployed from main: $VERSION"
+            exit 1
+          fi
+
+          echo "Deploying version: $VERSION"
+
       - name: Create Maven settings.xml
         run: |
           mkdir -p ~/.m2
@@ -43,5 +54,5 @@ jobs:
           NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
 
-      - name: Build and Deploy
-        run: mvn --batch-mode --update-snapshots clean deploy
+      - name: Build and deploy
+        run: mvn --batch-mode clean deploy
