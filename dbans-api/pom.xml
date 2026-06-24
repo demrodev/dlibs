@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>me.demro.dlibs</groupId>
-        <artifactId>dlibs-parent</artifactId>
+        <groupId>me.demro</groupId>
+        <artifactId>dlibs</artifactId>
         <version>1.0.2</version>
     </parent>
 
