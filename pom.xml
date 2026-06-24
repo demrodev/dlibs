@@ -4,12 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>me.demro.dlibs</groupId>
-    <artifactId>dlibs-parent</artifactId>
+    <groupId>me.demro</groupId>
+    <artifactId>dlibs</artifactId>
     <version>1.0.2</version>
     <packaging>pom</packaging>
 
-    <name>dLibs Parent</name>
+    <name>dLibs</name>
     <description>Parent POM for dLibs modules</description>
 
     <repositories>
@@ -24,6 +24,7 @@
     </modules>
 
     <properties>
+        <java.version>21</java.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
