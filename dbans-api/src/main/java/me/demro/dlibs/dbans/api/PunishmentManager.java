@@ -13,23 +13,20 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Core manager for creating, revoking, and querying punishments.
  *
- * <p>Synchronous methods must be called on the main server thread.
- * Use {@link #punishAsync} to avoid blocking the main thread.</p>
- *
  * @since 1.0.0
  */
 public interface PunishmentManager {
 
     /**
-     * Creates punishment for target player synchronously.
+     * Creates punishment for player.
      *
-     * @param targetUuid UUID of player to punish
+     * @param targetUuid UUID of player
      * @param type       punishment type
-     * @param reason     reason for punishment
-     * @param duration   duration in milliseconds, or {@code null} for permanent
-     * @param issuerUuid UUID of issuer; use {@code UUID.nameUUIDFromBytes("CONSOLE".getBytes())} for console
-     * @param issuerName name of issuer
-     * @param serverName server name, used for cross-server synchronisation
+     * @param reason     reason
+     * @param duration   duration in ms, or {@code null} for permanent
+     * @param issuerUuid issuer UUID; use {@code UUID.nameUUIDFromBytes("CONSOLE".getBytes())} for console
+     * @param issuerName issuer name
+     * @param serverName server name
      * @return ID of created punishment
      * @throws PlayerNotFoundException if target player is not known to DBans
      * @since 1.0.0
@@ -54,8 +51,6 @@ public interface PunishmentManager {
     /**
      * Returns punishment by ID, or {@code null} if not found.
      *
-     * <p>Searches across all punishment tables (bans, warnings, jail).</p>
-     *
      * @param id punishment ID
      * @return punishment, or {@code null}
      * @since 1.0.0
@@ -74,7 +69,7 @@ public interface PunishmentManager {
     @NotNull List<Punishment> getActivePunishments(@NotNull UUID targetUuid);
 
     /**
-     * Returns full punishment history for player, including inactive records.
+     * Returns punishment history for player, including inactive records.
      *
      * @param targetUuid UUID of player
      * @return list of all punishments
@@ -94,7 +89,7 @@ public interface PunishmentManager {
     boolean isBanned(@NotNull UUID targetUuid);
 
     /**
-     * Checks whether player has an active, non-expired mute.
+     * Checks whether player has an active mute.
      *
      * @param targetUuid UUID of player
      * @return {@code true} if player is muted
@@ -104,23 +99,58 @@ public interface PunishmentManager {
     boolean isMuted(@NotNull UUID targetUuid);
 
     /**
-     * Creates punishment for target player asynchronously.
+     * Checks whether player is jailed.
+     *
+     * @param targetUuid UUID of player
+     * @return {@code true} if player is jailed
+     * @since 1.0.2
+     */
+    @Contract(pure = true)
+    boolean isJailed(@NotNull UUID targetUuid);
+
+    /**
+     * Checks whether player has at least one active warning.
+     *
+     * @param targetUuid UUID of player
+     * @return {@code true} if player has an active warning
+     * @since 1.0.2
+     */
+    @Contract(pure = true)
+    boolean isWarned(@NotNull UUID targetUuid);
+
+    /**
+     * Creates punishment for player.
      *
      * <p>Recommended over {@link #punish} to avoid blocking the main server thread.</p>
      *
-     * @param targetUuid UUID of player to punish
+     * @param targetUuid UUID of player
      * @param type       punishment type
-     * @param reason     reason for punishment
-     * @param duration   duration in milliseconds, or {@code null} for permanent
-     * @param issuerUuid UUID of issuer; use {@code UUID.nameUUIDFromBytes("CONSOLE".getBytes())} for console
-     * @param issuerName name of issuer
-     * @param serverName server name, used for cross-server synchronisation
-     * @return future resolving to ID of created punishment
+     * @param reason     reason
+     * @param duration   duration in ms, or {@code null} for permanent
+     * @param issuerUuid issuer UUID; use {@code UUID.nameUUIDFromBytes("CONSOLE".getBytes())} for console
+     * @param issuerName issuer name
+     * @param serverName server name
+     * @return future ID of created punishment
      * @since 1.0.0
      */
     @NotNull CompletableFuture<String> punishAsync(@NotNull UUID targetUuid, @NotNull PunishmentType type,
                                                    @NotNull String reason, @Nullable Long duration,
                                                    @NotNull UUID issuerUuid, @NotNull String issuerName,
                                                    @NotNull String serverName
+    );
+
+    /**
+     * Revokes punishment by ID.
+     *
+     * <p>Recommended over {@link #revoke} to avoid blocking the main server thread.</p>
+     *
+     * @param punishmentId ID of punishment
+     * @param issuerName   issuer name
+     * @param reason       reason for revocation
+     * @return future that completes when the punishment has been revoked
+     * @since 1.0.2
+     */
+    @NotNull CompletableFuture<Void> revokeAsync(@NotNull String punishmentId, @NotNull String issuerName,
+                                                 @NotNull String reason
     );
 }
