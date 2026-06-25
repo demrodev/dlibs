@@ -7,6 +7,11 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Player identity used by dBans API requests.
+ *
+ * @since 2.0.0
+ */
 public final class PlayerIdentity {
 
     private final UUID uuid;

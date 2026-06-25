@@ -5,6 +5,13 @@ import org.jetbrains.annotations.NotNull;
 import java.time.Instant;
 import java.util.Objects;
 
+/**
+ * Last known IP of a player.
+ *
+ * @param value      IP
+ * @param recordedAt time when the IP was recorded
+ * @since 2.0.0
+ */
 public record PlayerAddress(@NotNull String value, @NotNull Instant recordedAt) {
 
     public PlayerAddress {

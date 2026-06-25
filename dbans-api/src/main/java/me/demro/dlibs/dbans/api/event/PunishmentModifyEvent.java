@@ -9,6 +9,11 @@ import java.time.Instant;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Fired when a punishment reason or expiration time changes.
+ *
+ * @since 2.0.0
+ */
 public final class PunishmentModifyEvent extends PunishmentEvent {
 
     private static final HandlerList HANDLERS = new HandlerList();

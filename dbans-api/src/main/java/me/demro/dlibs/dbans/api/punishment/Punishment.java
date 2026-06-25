@@ -8,6 +8,11 @@ import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Read-only punishment view exposed by dBans.
+ *
+ * @since 2.0.0
+ */
 public interface Punishment {
 
     @NotNull PunishmentId id();

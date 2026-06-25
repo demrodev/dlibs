@@ -6,6 +6,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.time.Instant;
 
+/**
+ * Fired when a punishment is created.
+ *
+ * @since 2.0.0
+ */
 public final class PunishmentCreateEvent extends PunishmentEvent {
 
     private static final HandlerList HANDLERS = new HandlerList();

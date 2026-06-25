@@ -5,6 +5,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
+/**
+ * Request for revoking a punishment.
+ *
+ * @since 2.0.0
+ */
 public record PunishmentRevokeRequest(
         @NotNull PunishmentId punishmentId,
         @NotNull PunishmentIssuer issuer,

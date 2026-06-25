@@ -7,6 +7,15 @@ import org.jetbrains.annotations.NotNull;
 import java.time.Instant;
 import java.util.Objects;
 
+/**
+ * Details of a punishment revocation.
+ *
+ * @param issuer     revocation issuer
+ * @param reason     revocation reason
+ * @param serverName server where the revocation was issued
+ * @param revokedAt  revocation time
+ * @since 2.0.0
+ */
 public record PunishmentRevocation(
         @NotNull PunishmentIssuer issuer,
         @NotNull PunishmentReason reason,

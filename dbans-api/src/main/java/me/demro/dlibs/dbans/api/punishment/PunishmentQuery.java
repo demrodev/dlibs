@@ -6,6 +6,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Query object for searching punishments.
+ *
+ * @since 2.0.0
+ */
 public final class PunishmentQuery {
 
     private final UUID targetUuid;
@@ -46,6 +51,11 @@ public final class PunishmentQuery {
         return Optional.ofNullable(limit);
     }
 
+    /**
+     * Builder for punishment queries.
+     *
+     * @since 2.0.0
+     */
     public static final class Builder {
 
         private UUID targetUuid;
@@ -84,7 +94,7 @@ public final class PunishmentQuery {
             return this;
         }
 
-        @Contract(" -> new")
+        @Contract(value = " -> new", pure = true)
         public @NotNull PunishmentQuery build() {
             return new PunishmentQuery(this);
         }

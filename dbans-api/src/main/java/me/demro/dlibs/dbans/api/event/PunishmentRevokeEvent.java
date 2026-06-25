@@ -7,6 +7,11 @@ import org.jetbrains.annotations.NotNull;
 import java.time.Instant;
 import java.util.Objects;
 
+/**
+ * Fired when a punishment is revoked.
+ *
+ * @since 2.0.0
+ */
 public final class PunishmentRevokeEvent extends PunishmentEvent {
 
     private static final HandlerList HANDLERS = new HandlerList();

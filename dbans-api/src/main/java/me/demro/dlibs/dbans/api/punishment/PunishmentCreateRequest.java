@@ -6,6 +6,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
+/**
+ * Request for creating a punishment.
+ *
+ * @since 2.0.0
+ */
 public final class PunishmentCreateRequest {
 
     private final PlayerIdentity target;
@@ -78,6 +83,11 @@ public final class PunishmentCreateRequest {
         return options;
     }
 
+    /**
+     * Builder for punishment create requests.
+     *
+     * @since 2.0.0
+     */
     public static final class Builder {
 
         private PlayerIdentity target;

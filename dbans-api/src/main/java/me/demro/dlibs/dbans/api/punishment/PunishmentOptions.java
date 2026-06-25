@@ -8,6 +8,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Optional flags and metadata for a punishment action.
+ *
+ * @since 2.0.0
+ */
 public final class PunishmentOptions {
 
     private static final PunishmentOptions DEFAULT = builder().build();
@@ -24,11 +29,23 @@ public final class PunishmentOptions {
         this.metadata = Collections.unmodifiableMap(new LinkedHashMap<>(builder.metadata));
     }
 
+    /**
+     * Returns default options.
+     *
+     * @return default options
+     * @since 2.0.0
+     */
     @Contract(pure = true)
     public static @NotNull PunishmentOptions defaults() {
         return DEFAULT;
     }
 
+    /**
+     * Creates a new options builder.
+     *
+     * @return builder
+     * @since 2.0.0
+     */
     @Contract(" -> new")
     public static @NotNull Builder builder() {
         return new Builder();
@@ -54,6 +71,11 @@ public final class PunishmentOptions {
         return metadata;
     }
 
+    /**
+     * Builder for punishment options.
+     *
+     * @since 2.0.0
+     */
     public static final class Builder {
 
         private final Map<String, String> metadata = new LinkedHashMap<>();
