@@ -24,7 +24,10 @@ public final class DBansProvider {
      * @since 1.0.0
      */
     public static @Nullable DBansAPI get() {
-        if (apiInstance != null) return apiInstance;
+        if (apiInstance != null) {
+            if (apiInstance.isEnabled()) return apiInstance;
+            apiInstance = null;
+        }
 
         Plugin plugin = Bukkit.getPluginManager().getPlugin("DBans");
         if (plugin == null || !plugin.isEnabled()) return null;
