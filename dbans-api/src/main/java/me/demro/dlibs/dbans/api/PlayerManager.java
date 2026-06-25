@@ -4,6 +4,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -35,7 +36,7 @@ public interface PlayerManager {
     boolean hasImmunity(@NotNull UUID playerUuid, @NotNull PunishmentType type);
 
     /**
-     * Returns priority of player. Higher values indicate greater immunity.
+     * Returns priority of player.
      *
      * @param playerUuid UUID of player
      * @return priority value
@@ -49,9 +50,21 @@ public interface PlayerManager {
      *
      * @param issuerUuid UUID of issuer
      * @param targetUuid UUID of target
-     * @return {@code true} if issuer outranks target
+     * @return {@code true} if issuer can punish target
      * @since 1.0.0
      */
     @Contract(pure = true)
     boolean canPunish(@NotNull UUID issuerUuid, @NotNull UUID targetUuid);
+
+    /**
+     * Returns UUIDs of alt accounts having the same IP as the player.
+     *
+     * <p>Be aware that the result can't be trusted since VPNs exist.</p>
+     *
+     * @param playerUuid UUID of player
+     * @return list of UUIDs of accounts, never {@code null}
+     * @since 1.0.2
+     */
+    @Contract(pure = true)
+    @NotNull List<UUID> getAltAccounts(@NotNull UUID playerUuid);
 }
