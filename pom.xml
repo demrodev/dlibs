@@ -6,7 +6,7 @@
 
     <groupId>me.demro</groupId>
     <artifactId>dlibs</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <packaging>pom</packaging>
 
     <name>dLibs</name>
