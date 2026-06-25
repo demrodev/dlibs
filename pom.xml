@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
 
     <name>dLibs</name>
-    <description>Parent POM for dLibs modules</description>
+    <description>Parent for dLibs modules</description>
 
     <repositories>
         <repository>
