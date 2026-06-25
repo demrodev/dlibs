@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public final class DBansProvider {
 
-    private static DBansAPI apiInstance;
+    private static volatile DBansAPI apiInstance;
 
     /**
      * Returns {@link DBansAPI} instance if DBans is loaded and enabled, {@code null} otherwise.
