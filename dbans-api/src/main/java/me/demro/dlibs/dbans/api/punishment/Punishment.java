@@ -38,7 +38,11 @@ public interface Punishment {
     @NotNull String serverName();
 
     default boolean isActive() {
-        return status() == PunishmentStatus.ACTIVE && !isExpired();
+        return isActive(Clock.systemUTC());
+    }
+
+    default boolean isActive(@NotNull Clock clock) {
+        return status() == PunishmentStatus.ACTIVE && !isExpired(clock);
     }
 
     default boolean isPermanent() {
@@ -46,7 +50,11 @@ public interface Punishment {
     }
 
     default boolean isExpired() {
-        return expiresAt().map(expiresAt -> !expiresAt.isAfter(Instant.now())).orElse(false);
+        return isExpired(Clock.systemUTC());
+    }
+
+    default boolean isExpired(@NotNull Clock clock) {
+        return expiresAt().map(expiresAt -> !expiresAt.isAfter(Instant.now(clock))).orElse(false);
     }
 
     default @NotNull Optional<Duration> remainingDuration(@NotNull Clock clock) {
