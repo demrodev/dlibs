@@ -1,59 +1,51 @@
 package me.demro.dlibs.dbans.api;
 
-import lombok.experimental.UtilityClass;
+import me.demro.dlibs.dbans.api.exception.DBansUnavailableException;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
-import org.jetbrains.annotations.Nullable;
+import org.bukkit.plugin.RegisteredServiceProvider;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Optional;
 
 /**
- * Static accessor for {@link DBansAPI}.
+ * Static accessor for the dBans API service registered in Bukkit's service manager.
  *
- * <p>Call {@link #get()} after a short delay on server startup, as DBans may take a few ticks to initialise.</p>
- *
- * @since 1.0.0
+ * @since 2.0.0
  */
-@UtilityClass
 public final class DBansProvider {
 
-    private static DBansAPI apiInstance;
-
-    /**
-     * Returns {@link DBansAPI} instance if DBans is loaded and enabled, {@code null} otherwise.
-     *
-     * @return API instance, or {@code null} if unavailable
-     * @since 1.0.0
-     */
-    public static @Nullable DBansAPI get() {
-        if (apiInstance != null) {
-            if (apiInstance.isEnabled()) return apiInstance;
-            apiInstance = null;
-        }
-
-        Plugin plugin = Bukkit.getPluginManager().getPlugin("DBans");
-        if (plugin == null || !plugin.isEnabled()) return null;
-
-        if (plugin instanceof DBansAPIProvider) {
-            apiInstance = ((DBansAPIProvider) plugin).getAPI();
-            return apiInstance;
-        }
-
-        return null;
+    @Contract(value = " -> fail", pure = true)
+    private DBansProvider() {
+        throw new UnsupportedOperationException("Utility class");
     }
 
     /**
-     * Implemented by DBans plugin to expose its {@link DBansAPI}.
+     * Returns registered dBans API if it is currently available.
      *
-     * @since 1.0.0
+     * @return API instance, or an empty optional if dBans is unavailable
+     * @since 2.0.0
      */
-    @FunctionalInterface
-    public interface DBansAPIProvider {
+    public static @NotNull Optional<DBansAPI> get() {
+        RegisteredServiceProvider<DBansAPI> registration = Bukkit.getServicesManager()
+                                                                 .getRegistration(DBansAPI.class);
 
-        /**
-         * Returns API instance provided by DBans.
-         *
-         * @return API instance
-         * @since 1.0.0
-         */
-        DBansAPI getAPI();
+        if (registration == null) {
+            return Optional.empty();
+        }
+
+        DBansAPI api = registration.getProvider();
+        return api.isAvailable() ? Optional.of(api) : Optional.empty();
+    }
+
+    /**
+     * Returns registered dBans API, or throws if it is not available.
+     *
+     * @return API instance
+     * @throws DBansUnavailableException if dBans is not registered or not available
+     * @since 2.0.0
+     */
+    public static @NotNull DBansAPI require() {
+        return get().orElseThrow(() -> new DBansUnavailableException("dBans API is not available"));
     }
 }
