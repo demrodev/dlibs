@@ -23,6 +23,7 @@ public record PunishmentRevokeRequest(
         Objects.requireNonNull(issuer, "issuer");
         Objects.requireNonNull(reason, "reason");
         Objects.requireNonNull(options, "options");
+        Objects.requireNonNull(serverName, "serverName");
         if (serverName.isBlank()) {
             throw new IllegalArgumentException("Server name cannot be blank");
         }
