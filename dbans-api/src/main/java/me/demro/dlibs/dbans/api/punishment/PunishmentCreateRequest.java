@@ -94,6 +94,7 @@ public final class PunishmentCreateRequest {
         private PunishmentType type;
         private PunishmentReason reason;
         private PunishmentDuration duration = PunishmentDuration.permanent();
+        private boolean durationExplicitlySet = false;
         private PunishmentIssuer issuer = PunishmentIssuer.console();
         private String serverName;
         private PunishmentOptions options = PunishmentOptions.defaults();
@@ -110,7 +111,7 @@ public final class PunishmentCreateRequest {
         @Contract("_ -> this")
         public @NotNull Builder type(@NotNull PunishmentType type) {
             this.type = type;
-            if (!type.supportsDuration()) {
+            if (!type.supportsDuration() && !durationExplicitlySet) {
                 this.duration = PunishmentDuration.instant();
             }
             return this;
@@ -125,6 +126,7 @@ public final class PunishmentCreateRequest {
         @Contract(value = "_ -> this", mutates = "this")
         public @NotNull Builder duration(@NotNull PunishmentDuration duration) {
             this.duration = duration;
+            this.durationExplicitlySet = true;
             return this;
         }
 
