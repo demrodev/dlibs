@@ -4,6 +4,7 @@ import me.demro.dlibs.dbans.api.punishment.Punishment;
 import me.demro.dlibs.dbans.api.punishment.PunishmentReason;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.time.Instant;
 import java.util.Objects;
@@ -27,8 +28,8 @@ public final class PunishmentModifyEvent extends PunishmentEvent {
             @NotNull Punishment punishment,
             @NotNull PunishmentReason oldReason,
             @NotNull PunishmentReason newReason,
-            Instant oldExpiresAt,
-            Instant newExpiresAt,
+            @Nullable Instant oldExpiresAt,
+            @Nullable Instant newExpiresAt,
             @NotNull EventOrigin origin,
             @NotNull Instant occurredAt,
             boolean async
@@ -52,10 +53,16 @@ public final class PunishmentModifyEvent extends PunishmentEvent {
         return newReason;
     }
 
+    /**
+     * @return previous expiration time, or an empty optional if punishment was permanent
+     */
     public @NotNull Optional<Instant> oldExpiresAt() {
         return Optional.ofNullable(oldExpiresAt);
     }
 
+    /**
+     * @return new expiration time, or an empty optional if punishment is now permanent
+     */
     public @NotNull Optional<Instant> newExpiresAt() {
         return Optional.ofNullable(newExpiresAt);
     }
