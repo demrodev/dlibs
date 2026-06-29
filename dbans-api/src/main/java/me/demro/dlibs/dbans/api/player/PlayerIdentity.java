@@ -18,7 +18,7 @@ public final class PlayerIdentity {
     private final String name;
 
     @Contract(pure = true)
-    public PlayerIdentity(UUID uuid, String name) {
+    private PlayerIdentity(UUID uuid, String name) {
         this.uuid = uuid;
         this.name = name;
     }
@@ -52,5 +52,17 @@ public final class PlayerIdentity {
     @Contract(pure = true)
     public @NotNull Optional<String> name() {
         return Optional.ofNullable(name);
+    }
+
+    @Contract(value = "null -> false", pure = true)
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof PlayerIdentity other)) return false;
+        return Objects.equals(uuid, other.uuid) && Objects.equals(name, other.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uuid, name);
     }
 }
