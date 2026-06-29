@@ -86,4 +86,16 @@ public final class PunishmentIssuer {
     public boolean isConsole() {
         return console;
     }
+
+    @Contract(value = "null -> false", pure = true)
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof PunishmentIssuer other)) return false;
+        return console == other.console && Objects.equals(uuid, other.uuid) && Objects.equals(name, other.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uuid, name, console);
+    }
 }
