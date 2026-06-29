@@ -83,7 +83,8 @@ public interface PunishmentService {
      * @since 2.0.0
      */
     default @NotNull CompletableFuture<List<Punishment>> findActiveByTarget(@NotNull UUID targetUuid) {
-        return find(PunishmentQuery.builder().targetUuid(targetUuid).status(PunishmentStatus.ACTIVE).build());
+        return find(PunishmentQuery.builder().targetUuid(targetUuid).status(PunishmentStatus.ACTIVE).build())
+                .thenApply(list -> list.stream().filter(Punishment::isActive).toList());
     }
 
     /**
