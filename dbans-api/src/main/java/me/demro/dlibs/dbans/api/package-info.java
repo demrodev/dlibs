@@ -1,6 +1,6 @@
 /**
- * This package contains the main API for DLibs.
+ * Public API for dBans integrations and addons.
  *
- * @since 1.0.0
+ * @since 2.0.0
  */
 package me.demro.dlibs.dbans.api;
