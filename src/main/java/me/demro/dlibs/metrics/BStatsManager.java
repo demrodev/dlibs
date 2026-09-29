@@ -10,11 +10,16 @@ import org.jetbrains.annotations.NotNull;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * Менеджер bStats. Отвечает за инициализацию {@link Metrics} и регистрацию чартов.
+ * Менеджер bStats.
  *
  * <p>Пример использования:</p>
  * <pre>{@code
+ *   // Способ 1 — явный:
  *   BStatsManager.start(this, 12345);
+ *
+ *   // Способ 2 — после init:
+ *   BStatsManager.init(this);
+ *   BStatsManager.start(12345);
  * }</pre>
  */
 public final class BStatsManager {
@@ -22,16 +27,21 @@ public final class BStatsManager {
     @Getter
     private static Metrics metrics;
 
+    private static JavaPlugin pluginRef;
     private static final AtomicBoolean STARTED = new AtomicBoolean(false);
 
     private BStatsManager() {
     }
 
     /**
-     * Запускает bStats для указанного плагина.
-     *
-     * @param plugin   экземпляр плагина
-     * @param pluginId ID плагина с bstats.org
+     * Запоминает плагин для последующих вызовов {@link #start(int)}.
+     */
+    public static void init(@NotNull JavaPlugin plugin) {
+        pluginRef = plugin;
+    }
+
+    /**
+     * Запускает bStats с явным указанием плагина.
      */
     public static void start(@NotNull JavaPlugin plugin, int pluginId) {
         if (STARTED.getAndSet(true)) {
@@ -39,8 +49,11 @@ public final class BStatsManager {
             return;
         }
 
+        pluginRef = plugin;
+
         try {
             metrics = new Metrics(plugin, pluginId);
+
             for (var supplier : ChartRegistry.getCharts()) {
                 try {
                     CustomChart chart = supplier.get();
@@ -62,15 +75,22 @@ public final class BStatsManager {
     }
 
     /**
-     * Возвращает {@code true}, если bStats уже запущен.
+     * Запускает bStats, используя плагин, сохранённый через {@link #init(JavaPlugin)}.
+     * Бросает {@link IllegalStateException}, если плагин не был установлен.
      */
+    public static void start(int pluginId) {
+        if (pluginRef == null) {
+            throw new IllegalStateException(
+                    "BStatsManager не инициализирован. Сначала вызовите BStatsManager.init(plugin) " +
+                            "или используйте start(JavaPlugin, int).");
+        }
+        start(pluginRef, pluginId);
+    }
+
     public static boolean isStarted() {
         return STARTED.get();
     }
 
-    /**
-     * Корректно завершает работу bStats.
-     */
     public static void shutdown() {
         if (metrics != null) {
             try {
@@ -79,6 +99,7 @@ public final class BStatsManager {
             }
             metrics = null;
         }
+        pluginRef = null;
         STARTED.set(false);
     }
 }
