@@ -3,6 +3,8 @@ package me.demro.dlibs;
 import lombok.NonNull;
 import me.demro.dlibs.annotation.BStats;
 import me.demro.dlibs.annotation.UpdateCheck;
+import me.demro.dlibs.api.economy.EconomyProvider;
+import me.demro.dlibs.api.economy.EconomyService;
 import me.demro.dlibs.metrics.BStatsManager;
 import me.demro.dlibs.metrics.chart.ChartRegistry;
 import me.demro.dlibs.model.UpdatePlatform;
@@ -10,7 +12,9 @@ import me.demro.dlibs.model.UpdateResult;
 import org.bstats.charts.CustomChart;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -19,10 +23,6 @@ import java.util.function.Supplier;
  * Главный фасад библиотеки dLibs.
  */
 public record DLibs(JavaPlugin plugin) {
-
-    // ==============================
-    //  bStats
-    // ==============================
 
     /**
      * Запускает bStats с указанным ID.
@@ -48,6 +48,25 @@ public record DLibs(JavaPlugin plugin) {
     }
 
     /**
+     * Возвращает экономический сервис dEconomy, если плагин установлен.
+     *
+     * <pre>{@code
+     *   dLibs.economy().ifPresent(econ ->
+     *       econ.deposit(player, "gold", 100));
+     * }</pre>
+     */
+    public @org.jspecify.annotations.NonNull Optional<EconomyService> economy() {
+        return EconomyProvider.get();
+    }
+
+    /**
+     * Возвращает {@code true}, если dEconomy доступен на сервере.
+     */
+    public boolean hasEconomy() {
+        return EconomyProvider.isAvailable();
+    }
+
+    /**
      * Регистрирует кастомный чарт bStats.
      * Можно вызывать до {@link #startBStats(int)} — чарты будут добавлены при старте.
      */
@@ -62,23 +81,19 @@ public record DLibs(JavaPlugin plugin) {
         BStatsManager.shutdown();
     }
 
-    // ==============================
-    //  Update Checker (существующий код)
-    // ==============================
-
-    public CompletableFuture<UpdateResult> checkUpdates(@NonNull String projectId,
-                                                        @NonNull String currentVersion) {
+    public CompletableFuture<UpdateResult> checkUpdates(@NotNull String projectId,
+                                                        @NotNull String currentVersion) {
         return checkUpdates(UpdatePlatform.GITHUB, projectId, currentVersion);
     }
 
-    public CompletableFuture<UpdateResult> checkUpdates(@NonNull UpdatePlatform platform,
-                                                        @NonNull String projectId,
-                                                        @NonNull String currentVersion) {
+    public CompletableFuture<UpdateResult> checkUpdates(@NotNull UpdatePlatform platform,
+                                                        @NotNull String projectId,
+                                                        @NotNull String currentVersion) {
         return UpdateChecker.check(platform, projectId, currentVersion);
     }
 
-    public CompletableFuture<UpdateResult> checkUpdatesAndLog(@NonNull String projectId,
-                                                              @NonNull String currentVersion) {
+    public @org.jspecify.annotations.NonNull CompletableFuture<UpdateResult> checkUpdatesAndLog(@NotNull String projectId,
+                                                                                                         @NotNull String currentVersion) {
         return checkUpdates(projectId, currentVersion).thenApply(result -> {
             if (result.hasError()) {
                 plugin.getSLF4JLogger().warn("Не удалось проверить обновления: {}", result.getError());
